@@ -1,4 +1,7 @@
-.checkout
-=========
+Installation:
 
-A Symfony project created on November 7, 2017, 5:25 pm.
+-Clone or download
+-command "php bin/console doctrine:schema:update --force"
+-command "php bin/console doctrine:fixtures:load"
+-command "php bin/console assets:install web --symlink"
+
