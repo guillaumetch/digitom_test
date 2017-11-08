@@ -32,7 +32,7 @@ class Car
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Color", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Color", cascade={"persist","remove"})
      */
     private $colors;
 

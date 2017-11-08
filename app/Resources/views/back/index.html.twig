@@ -1,0 +1,14 @@
+{% extends 'front/base.html.twig' %}
+{% block title %}
+    Back office
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col offset-3 col-lg-6 text-center">
+            <h1>Back-Office</h1>
+            <a class="btn btn-primary" href="{{ path('user_index') }}">Prospects</a>
+            <a class="btn btn-primary" href="{{ path('car_index') }}">Voitures</a>
+            <a class="btn btn-primary" href="{{ path('color_index') }}">Couleurs</a>
+        </div>
+    </div>
+{% endblock %}

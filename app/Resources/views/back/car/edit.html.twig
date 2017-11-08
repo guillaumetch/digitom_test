@@ -1,21 +1,20 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'front/base.html.twig' %}
+{% block title %}
+    Modifier la voiture
+{% endblock %}
 {% block body %}
-    <h1>Car edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('car_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col offset-2 col-lg-8 text-center">
+            <h1>Modifier la voiture</h1>
+            <div class="col offset-3 col-lg-6 text-left">
+                {{ form_start(edit_form) }}
+                {{ form_widget(edit_form) }}
+                <div class="text-center marg-t-2">
+                    <input class="btn btn-success" type="submit" value="Modifier" />
+                    <a class="btn btn-primary" href="{{ path('car_index') }}">Retour à la liste</a>
+                </div>
+                {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,45 +1,37 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'front/base.html.twig' %}
+{% block title %}
+    Liste des prospects
+{% endblock %}
 {% block body %}
-    <h1>Users list</h1>
+    <div class="row">
+        <div class="col offset-2 col-lg-8">
+            <h1>Liste des prospects</h1>
+            <a class="btn btn-primary" href="{{ path('backoffice') }}">Retour</a>
+            <table class="table table-bordered table-responsive-lg marg-t-2">
+                <thead>
+                <tr>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Dateofbirth</th>
-                <th>Hasdriverlicense</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{% if user.dateOfBirth %}{{ user.dateOfBirth|date('Y-m-d') }}{% endif %}</td>
-                <td>{% if user.hasDriverLicense %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('user_new') }}">Create a new user</a>
-        </li>
-    </ul>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Date de naissance</th>
+                    <th>Permis ?</th>
+                    <th>Voiture</th>
+                    <th>Couleur</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.lastname }}</td>
+                        <td>{% if user.dateOfBirth %}{{ user.dateOfBirth|date('d-m-Y') }}{% endif %}</td>
+                        <td>{% if user.hasDriverLicense %}Oui{% else %}Non{% endif %}</td>
+                        <td>{% if user.car %} {{ user.car.name }} {% else %}Non{% endif %}</td>
+                        <td>{% if user.color %}{{ user.color.name }}{% else %}-{% endif %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

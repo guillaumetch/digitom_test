@@ -1,16 +1,23 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'front/base.html.twig' %}
+{% block title %}
+Ajouter une couleur
+{% endblock %}
 {% block body %}
-    <h1>Color creation</h1>
+    <div class="row">
+        <div class="col offset-2 col-lg-8 text-center">
+            <h1>Ajouter une couleur</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+            <div class="col offset-3 col-lg-6 marg-t-5 text-left">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <div class="text-center marg-t-2">
+                    <input class="btn btn-success" type="submit" value="Ajouter" />
+                    <a class="btn btn-primary" href="{{ path('color_index') }}">Retour à la liste</a>
+                </div>
+                {{ form_end(form) }}
+            </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('color_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        </div>
+    </div>
+
 {% endblock %}

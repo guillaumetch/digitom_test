@@ -1,39 +1,37 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'front/base.html.twig' %}
+{% block title %} Liste des couleurs {% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}
 {% block body %}
-    <h1>Colors list</h1>
+    <div class="row">
+        <div class="col offset-2 col-lg-8">
+            <h1>Liste des couleurs</h1>
+            <a class="btn btn-success" href="{{ path('color_new') }}">Ajouter une couleur</a> <a class="btn btn-primary" href="{{ path('backoffice') }}">Retour</a>
+            <table class="table table-responsive-lg table-bordered marg-t-2">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for color in colors %}
+                    <tr>
+                        <td>{{ color.name }}</td>
+                        <td>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for color in colors %}
-            <tr>
-                <td><a href="{{ path('color_show', { 'id': color.id }) }}">{{ color.id }}</a></td>
-                <td>{{ color.name }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('color_show', { 'id': color.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('color_edit', { 'id': color.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('color_new') }}">Create a new color</a>
-        </li>
-    </ul>
+                                    <a class="btn btn-warning" href="{{ path('color_edit', { 'id': color.id }) }}">Modifier</a>
+
+                                    <a class="btn btn-danger" href="{{ path('color_delete', { 'id': color.id }) }}">Supprimer</a>
+
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

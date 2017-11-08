@@ -1,39 +1,43 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'front/base.html.twig' %}
+{% block title %}
+    Liste des voitures
+{% endblock %}
 {% block body %}
-    <h1>Cars list</h1>
+    <div class="row">
+        <div class="col offset-2 col-lg-8">
+            <h1>Liste des voitures</h1>
+            <a class="btn btn-success" href="{{ path('car_new') }}">Créer une nouvelle voiture</a>
+            <a class="btn btn-primary" href="{{ path('backoffice') }}">Retour</a>
+            <table class="table table-responsive-lg table-bordered marg-t-2">
+                <thead>
+                <tr>
+                    <th>Modèle</th>
+                    <th>Couleurs</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for car in cars %}
+                    <tr>
+                        <td>{{ car.name }}</td>
+                        <td>
+                            {% for color in car.colors %}
+                                {% if loop.last %}
+                                    {{ color.name }}
+                                {% else %}
+                                    {{ color.name }} -
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="{{ path('car_edit', { 'id': car.id }) }}">Modifier</a>
+                            <a class="btn btn-danger" href="{{ path('car_delete', { 'id': car.id }) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for car in cars %}
-            <tr>
-                <td><a href="{{ path('car_show', { 'id': car.id }) }}">{{ car.id }}</a></td>
-                <td>{{ car.name }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('car_show', { 'id': car.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('car_edit', { 'id': car.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('car_new') }}">Create a new car</a>
-        </li>
-    </ul>
 {% endblock %}

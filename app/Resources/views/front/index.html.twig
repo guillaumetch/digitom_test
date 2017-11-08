@@ -1,0 +1,98 @@
+{% extends 'front/base.html.twig' %}
+{% block title %}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col offset-3 col-lg-6">
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-success alert-dismissable marg-t-2">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ message | raw }}
+                </div>
+            {% endfor %}
+            {{ form_start(form, {'method': 'post', 'action': path('preference'), 'attr': {'class': 'row marg-t-5'}}) }}
+            <div class="col col-lg-6">
+                {{ form_label(form.firstname,"Prénom :") }}
+                {{ form_widget(form.firstname,{'attr': {'class': 'form-control'}}) }}
+                {{ form_label(form.lastname,"Nom :") }}
+                {{ form_widget(form.lastname,{'attr': {'class': 'form-control'}}) }}
+                {{ form_label(form.dateOfBirth,"Date de naissance :") }}
+                {{ form_widget(form.dateOfBirth,{'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="col col-lg-6">
+
+                {{ form_label(form.hasDriverLicense,"Avez-vous le permis ?") }}
+                {{ form_widget(form.hasDriverLicense,{'attr': {'class': 'hasDriverLicense'}}) }}
+
+                <div class="car_infos d-none">
+
+                    {{ form_widget(form.car,{'attr': {'class': 'form-control car marg-t-2'}}) }}
+
+                    {{ form_widget(form.color,{'attr': {'class': 'form-control color marg-t-2'}}) }}
+                </div>
+                <div class="col col-lg-12 text-center loader d-none">
+                    <img src="{{ asset('bundles/app/ajax-loader.gif') }}" />
+                </div>
+                <input type="submit" value="Envoyer" class="form-control btn btn-success marg-t-2">
+
+            </div>
+            {{ form_end(form) }}
+            <a class="btn btn-primary marg-t-2" href="{{ path('homepage') }}">Retour</a>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // configure the bootstrap datepicker
+            $('.hasDriverLicense').on('change',function () {
+                if(this.checked){
+                    $('.car_infos').removeClass('d-none');
+                }
+                else{
+                    $('.car_infos').addClass('d-none');
+                }
+
+            })
+
+            var car = $('.car');
+            // When sport gets selected ...
+            car.change(function() {
+                // ... retrieve the corresponding form.
+                var form = $(this).closest('form');
+                // Simulate form data, but only include the selected sport value.
+                var data = {};
+                data['id'] = car.val();
+                // Submit data via AJAX to the form's action path.
+                $.ajax({
+                    url : form.attr('action'),
+                    type: form.attr('method'),
+                    data : data,
+                    success: function(response) {
+                        var color = $('.color');
+                        color.empty();
+                        for(var i =0; i < response['colors'].length;i++){
+                            color.append('<option value="'+response['colors'][i]['id'] +'"> '+ response['colors'][i]['name'] +' </option>');
+                        }
+                    }
+                });
+            });
+
+            $(document).ajaxStart(function() {
+                $('.loader').removeClass('d-none');
+                $('.color').addClass('d-none');
+            });
+
+            $(document).ajaxStop(function() {
+                $('.loader').addClass('d-none');
+                $('.color').removeClass('d-none');
+            });
+        });
+    </script>
+
+{% endblock %}
+

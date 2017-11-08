@@ -45,14 +45,15 @@ class User
     /**
      * @var bool
      *
-     * @ORM\Column(name="has_driver_license", type="boolean")
+     * @ORM\Column(name="has_driver_license", type="boolean",nullable=true)
      */
     private $hasDriverLicense;
 
     /**
      * @var Car
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Car", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Car", cascade={"persist","remove"})
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $car;
 
@@ -60,7 +61,8 @@ class User
     /**
      * @var Color
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Color", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Color", cascade={"persist","remove"})
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $color;
 
